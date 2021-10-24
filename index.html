@@ -1,0 +1,195 @@
+
+<head>
+    <link rel="stylesheet" href="style.css">
+</head>
+<main id="main-doc">
+<nav id="navbar">
+    <header><h1>Logic programming</h1></header>
+    <ul>
+        <li><a class="nav-link" href="#History">History</a></li>
+        <li><a class="nav-link" href="#Concepts">Concepts</a></li>
+        <li><a class="nav-link" href="#Variants_and_extensions">Variants and extensions</a></li>
+        <li><a class="nav-link" href="#Abductive_logic_programming">Abductive logic programming</a>
+        <li><a class="nav-link" href="#Metalogic_programming">Metalogic programming</a></li>
+
+  </ul>
+</nav>
+
+<section class="main-section" id="History">
+    <header>History</header>
+    <p>
+        "Rule-Based" redirects here. For the method of machine translation, see Rule-based machine translation. 
+        For methods of machine learning, see Rule-based machine learning.
+    </p>
+    <p>
+        Logic programming is a programming paradigm which is largely based on formal logic. Any program written in a logic 
+        programming language is a set of sentences in logical form, expressing facts and rules about some problem domain. 
+        Major logic programming language families include Prolog, answer set programming (ASP) and Datalog. In all of these languages, rules are written in the form of clauses:
+    </p>
+    <p>
+        <code>H :- B1, …, Bn.</code>
+    </p>
+    <p>
+        and are read declaratively as logical implications:
+    </p>
+    <p>
+        <code>H if B1 and … and Bn.</code>
+    </p>
+    <p>
+        H is called the head of the rule and B1, ..., Bn is called the body. Facts are rules that have no body, and are written in the simplified form:
+    </p>
+    <p>
+        <code>H.</code>
+    </p>
+    <p>
+        In the simplest case in which H, B1, ..., Bn are all atomic formulae, these clauses are called definite clauses or Horn clauses. However, 
+        there are many extensions of this simple case, the most important one being the case in which conditions in the body of a clause can also 
+        be negations of atomic formulas. Logic programming languages that include this extension have the knowledge representation capabilities 
+        of a non-monotonic logic.
+    </p>
+</section>
+<section class="main-section" id="Concepts">
+    <header>Concepts</header>
+    <ul>
+        <li>
+            Logic and control
+            <p>Logic programming can be viewed as controlled deduction. An important concept in logic programming is the separation of programs into their logic 
+                component and their control component. With pure logic programming languages, the logic component alone determines the solutions produced. 
+                The control component can be varied to provide alternative ways of executing a logic program. This notion is captured by the slogan</p>
+                <p>
+                    <code>Algorithm = Logic + Control</code>
+                </p>
+                <p>
+                    where "Logic" represents a logic program and "Control" represents different theorem-proving strategies.[10]
+                </p>
+        </li>
+        <li>
+            Problem solving
+            <p>In the simplified, propositional case in which a logic program and a top-level atomic goal contain no variables, 
+                backward reasoning determines an and-or tree, which constitutes the search space for solving the goal. 
+                The top-level goal is the root of the tree. Given any node in the tree and any clause whose head matches the node, 
+                there exists a set of child nodes corresponding to the sub-goals in the body of the clause. These child nodes are grouped together by an "and". 
+                The alternative sets of children corresponding to alternative ways of solving the node are grouped together by an "or".
+            </p>
+            <p>
+                Any search strategy can be used to search this space. Prolog uses a sequential, last-in-first-out, backtracking strategy, in which only one alternative and one sub-goal is considered at a time. 
+                Other search strategies, such as parallel search, intelligent backtracking, or best-first search to find an optimal solution, are also possible.
+            </p>
+            <p>
+                In the more general case, where sub-goals share variables, other strategies can be used, such as choosing the subgoal that is most highly instantiated or that is sufficiently instantiated so that only one procedure applies. 
+                Such strategies are used, for example, in concurrent logic programming.
+            </p>
+        </li>
+        <li>
+            Negation as failure
+            <p>For most practical applications, as well as for applications that require non-monotonic reasoning in artificial intelligence, 
+                Horn clause logic programs need to be extended to normal logic programs, with negative conditions. 
+                A clause in a normal logic program has the form:
+            </p>
+            <p>
+                <code>H :- A1, …, An, not B1, …, not Bn.</code>
+            </p>
+            <p>
+                and is read declaratively as a logical implication:
+            </p>
+            <p><code>H if A1 and … and An and not B1 and … and not Bn.</code></p>
+            <p>
+                where H and all the Ai and Bi are atomic formulas. The negation in the negative literals not Bi is commonly referred to as "negation as failure", because in most implementations, 
+                a negative condition not Bi is shown to hold by showing that the positive condition Bi fails to hold.
+            </p>
+        </li>
+        <li>
+            Knowledge representation
+            <p>The fact that Horn clauses can be given a procedural interpretation and, vice versa, that goal-reduction procedures can be understood as Horn clauses + backward reasoning means that logic programs combine declarative and procedural representations of knowledge. 
+                The inclusion of negation as failure means that logic programming is a kind of <a href="https://en.wikipedia.org/wiki/Non-monotonic_logic" target="_blank">non-monotonic logic.</a></p>
+            <p>
+                Despite its simplicity compared with classical logic, this combination of Horn clauses and negation as failure has proved to be surprisingly expressive. 
+                For example, it provides a natural representation for the common-sense laws of cause and effect, as formalised by both the situation calculus and event 
+                calculus. It has also been shown to correspond quite naturally to the semi-formal language of legislation. In particular, 
+                Prakken and Sartor[11] credit the representation of the British Nationality Act as a logic program[12] with being "hugely influential for the 
+                development of computational representations of legislation, 
+                showing how logic programming enables intuitively appealing representations that can be directly deployed to generate automatic inferences".
+            </p>
+            </li>
+    </ul>
+</section>
+<section class="main-section" id="Variants_and_extensions">
+    <header>Variants and extensions</header>
+    <p>
+        The programming language Prolog was developed in 1972 by Alain Colmerauer. It emerged from a collaboration between Colmerauer in Marseille and Robert 
+        Kowalski in Edinburgh. Colmerauer was working on natural-language understanding, using logic to represent semantics and using resolution for 
+        question-answering. During the summer of 1971, Colmerauer and Kowalski discovered that the clausal form of logic could be used to represent 
+        formal grammars and that resolution theorem provers could be used for parsing. They observed that some theorem provers, like hyper-resolution, 
+        behave as bottom-up parsers and others, like SL-resolution (1971), behave as top-down parsers.
+    </p>
+    <p>
+        It was in the following summer of 1972, that Kowalski, again working with Colmerauer, 
+        developed the procedural interpretation of implications. This dual declarative/procedural 
+        interpretation later became formalised in the Prolog notation
+    </p>
+    <p>
+        It was in the following summer of 1972, that Kowalski, again working with Colmerauer, developed the procedural interpretation of implications. This dual declarative/procedural interpretation later became formalised in the Prolog notation
+    </p>
+    <p>
+        <code>H :- B1, …, Bn.        </code>
+    </p>
+    <p>which can be read (and used) both declaratively and procedurally. It also became clear that such clauses could be restricted to definite clauses or Horn clauses, where H, B1, ..., Bn are all atomic predicate logic formulae, and that SL-resolution could be restricted (and generalised) to LUSH or SLD-resolution. Kowalski's procedural interpretation and LUSH were described in a 1973 memo, published in 1974.</p>
+</section>
+<section class="main-section" id="Abductive_logic_programming">
+    <header>Abductive logic programming</header>
+    
+    <p>Abductive logic programming is an extension of normal Logic Programming that allows some predicates, 
+        declared as abducible predicates, to be "open" or undefined. A clause in an abductive logic program has the form:</p>
+    <p><code>H :- B1, …, Bn, A1, …, An.</code></p>
+    <p>where H is an atomic formula that is not abducible, all the Bi are literals whose predicates are not abducible,
+         and the Ai are atomic formulas whose predicates are abducible. The abducible predicates can be constrained by integrity constraints, 
+         which can have the form:
+    </p>
+    <p>
+        <code>false :- L1, …, Ln.</code>
+    </p>
+    <p>
+        where the Li are arbitrary literals (defined or abducible, and atomic or negated). For example:
+    </p>
+    <p>
+        <code>
+            canfly(X) :- bird(X), normal(X).<br>
+            false :- normal(X), wounded(X).<br>
+            bird(john).<br>
+            bird(mary).<br>
+            wounded(john).</code>
+    </p>
+    <p>
+        where the predicate normal is abducible.
+    </p>
+    <p>
+        Problem solving is achieved by deriving hypotheses expressed in terms of the abducible predicates as solutions of problems to be solved. These problems can be either observations that need to be explained (as in classical abductive reasoning) or goals to be solved (as in normal logic programming). For example, the hypothesis normal(mary) explains the observation canfly(mary). 
+        Moreover, the same hypothesis entails the only solution X = mary of the goal of finding something which can fly:
+    </p>
+    <p><code>:- canfly(X).    </code></p>
+    <p>Abductive logic programming has been used for fault diagnosis, planning, natural language processing and machine learning. 
+        It has also been used to interpret Negation as Failure as a form of abductive reasoning.
+    </p>
+</section>
+<section class="main-section" id="Metalogic_programming">
+    <header>Metalogic Programming</header>
+    <p>Because mathematical logic has a long tradition of distinguishing between object language and metalanguage, logic programming also allows metalevel programming. The simplest metalogic program is the so-called "vanilla" meta-interpreter:
+    </p>
+    <p>
+        <code>
+            solve(true).<br>
+            solve((A,B)):- solve(A),solve(B).<br>
+            solve(A):- clause(A,B),solve(B).<br>
+        </code>
+    </p>
+    <p>where true represents an empty conjunction, and clause(A,B) means that there is an object-level clause of the form A :- B.
+    </p>
+    <p>Metalogic programming allows object-level and metalevel representations to be combined, as in natural language. It can also be used to implement any logic which is specified as inference rules. Metalogic is used in logic programming to implement metaprograms, which manipulate other programs, databases, knowledge bases or axiomatic theories as data.
+    </p>
+</section>
+<footer>
+    <ul>
+      <li><p>for more information about the subjects <a href="https://en.wikipedia.org/wiki/Logic_programming#Concepts" target="_blank">WIKEPEDIA</a></p> </li>
+    </ul>
+  </footer>
+</main>
